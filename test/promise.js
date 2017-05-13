@@ -88,16 +88,27 @@ test('traverse', t => {
         cats: [{color: 'white'}, {color: resolve('black')}],
         numbers: [1, 13, resolve(42)]
     };
+    const y = {
+        name: resolve('john'),
+        cats: [{color: 'white'}, {color: resolve('black')}],
+        numbers: [reject('boom'), 13, resolve(42)]
+    };
 
     const a = traverse(x);
+    const b = traverse(y);
 
     t.true(isPromise(a));
-    a.then(px => {
+    t.true(isPromise(b));
+
+    const aa = a.then(px => {
         t.deepEqual({
             name: 'john',
             cats: [{color: 'white'}, {color: 'black'}],
             numbers: [1, 13, 42]
         }, px);
-        t.end();
     });
+
+    const bb = b.catch(err => t.equal('boom', err));
+
+    all([aa, bb]).then(_ => t.end());
 });
