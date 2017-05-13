@@ -1,7 +1,7 @@
 const { iif } = require('./logic.js');
 const { isArray, map } = require('./list.js');
 
-const isObject = x => typeof x === 'object';
+const isObject = x => typeof x === 'object' && x;
 
 const keys = Object.keys.bind(Object);
 
