@@ -1,0 +1,17 @@
+{
+    "name" : "belt",
+    "version" : "0.0.1",
+    "description" : "Because every tool needs a home",
+    "main" : "index.js",
+    "dependencies" : {},
+    "devDependencies" : {
+    },
+    "repository" : "mvaldesdeleon/belt",
+    "keywords" : [
+        "functional",
+        "programming",
+        "toolbox"
+    ],
+    "author": "Martin Valdes de Leon <m.valdesdeleon@gmail.com>",
+    "license" : "MIT"
+}
