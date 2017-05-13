@@ -3,7 +3,7 @@ const sinon = require('sinon');
 
 const { id } = require('../logic.js');
 // functions to test
-const { isPromise, resolve, all, allO, allAny, traverse } = require('../promise.js');
+const { isPromise, resolve, reject, all, allO, allAny, traverse } = require('../promise.js');
 
 test('isPromise', t => {
     const xs = [Promise.resolve(), Promise.reject(), new Promise(id)];
@@ -26,6 +26,18 @@ test('resolve', t => {
     t.true(isPromise(r));
     r.then(px => {
         t.deepEqual(x, px);
+        t.end();
+    });
+});
+
+test('reject', t => {
+    const x = {};
+
+    const r = reject(x);
+
+    t.true(isPromise(r));
+    r.catch(err => {
+        t.deepEqual(x, err);
         t.end();
     });
 });

@@ -7,6 +7,8 @@ const isPromise = x => x instanceof Promise;
 
 const resolve = Promise.resolve.bind(Promise);
 
+const reject = Promise.reject.bind(Promise);
+
 const all = Promise.all.bind(Promise);
 
 const allO = map => all(listify(map)).then(mapify);
@@ -20,6 +22,7 @@ const traverse = x => isTraversable(x) ? compose(allAny, mapAny(traverse))(x) : 
 module.exports = {
     isPromise,
     resolve,
+    reject,
     all,
     allO,
     allAny,
