@@ -11,7 +11,7 @@ const call = fn => fn.call(null);
 
 const curry = fn => (...args) => compose(iif(arity)(curry)(call), apply(fn))(...args);
 
-const flip = fn => b => a => fn(a, b);
+const flip = fn => b => a => fn(a)(b);
 
 module.exports = {
     arity,
