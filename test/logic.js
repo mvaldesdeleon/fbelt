@@ -5,23 +5,26 @@ const sinon = require('sinon');
 const { id, ftrue, ffalse, iif, not, and, or, xor } = require('../logic.js');
 
 test('id', t => {
-    const xs = [null, undefined, -Infinity, 'hello', new Date(), {a: 1}, [1,2,3], true];
+    const xs = [null, undefined, -Infinity, 'hello', new Date(), {a: 1}, [1,2,3], true, 1.23];
 
     t.deepEqual(xs, xs.map(id));
+
     t.end();
 });
 
 test('ftrue', t => {
-    const xs = [null, undefined, -Infinity, NaN, 'hello', new Date(), {a: 1}, [1,2,3], true];
+    const xs = [null, undefined, -Infinity, NaN, 'hello', new Date(), {a: 1}, [1,2,3], true, 1.23];
 
     xs.map(ftrue).map(t.true);
+
     t.end();
 });
 
 test('ffalse', t => {
-    const xs = [null, undefined, -Infinity, NaN, 'hello', new Date(), {a: 1}, [1,2,3], true];
+    const xs = [null, undefined, -Infinity, NaN, 'hello', new Date(), {a: 1}, [1,2,3], true, 1.23];
 
     xs.map(ffalse).map(t.false);
+
     t.end();
 });
 
@@ -40,9 +43,9 @@ test('iif', t => {
 
     t.true(iift(x));
     t.true(prt.calledOnce);
-    t.true(prt.calledWithExactly(x));
+    t.true(prt.calledWith(x));
     t.true(ft.calledOnce);
-    t.true(ft.calledWithExactly(x));
+    t.true(ft.calledWith(x));
     t.true(ff.notCalled);
 
     ft.reset();
@@ -50,10 +53,10 @@ test('iif', t => {
 
     t.false(iiff(x));
     t.true(prf.calledOnce);
-    t.true(prf.calledWithExactly(x));
+    t.true(prf.calledWith(x));
     t.true(ft.notCalled);
     t.true(ff.calledOnce);
-    t.true(ff.calledWithExactly(x));
+    t.true(ff.calledWith(x));
 
     t.end();
 });
@@ -64,18 +67,18 @@ test('not', t => {
     const ft = sinon.spy(ftrue);
     const ff = sinon.spy(ffalse);
 
-    const fnt = not(ft);
-    const fnf = not(ff);
+    const nott = not(ft);
+    const notf = not(ff);
 
     const x = {};
 
-    t.false(fnt(x));
+    t.false(nott(x));
     t.true(ft.calledOnce);
-    t.true(ft.calledWithExactly(x));
+    t.true(ft.calledWith(x));
 
-    t.true(fnf(x));
+    t.true(notf(x));
     t.true(ff.calledOnce);
-    t.true(ff.calledWithExactly(x));
+    t.true(ff.calledWith(x));
 
     t.end();
 });
@@ -86,22 +89,22 @@ test('and', t => {
     const ft = sinon.spy(ftrue);
     const ff = sinon.spy(ffalse);
 
-    const ftt = and(ft)(ft);
-    const ftf = and(ft)(ff);
-    const fft = and(ff)(ft);
-    const fff = and(ff)(ff);
+    const andtt = and(ft)(ft);
+    const andtf = and(ft)(ff);
+    const andft = and(ff)(ft);
+    const andff = and(ff)(ff);
 
     const x = {};
 
-    t.true(ftt(x));
-    t.false(ftf(x));
-    t.false(fft(x));
-    t.false(fff(x));
+    t.true(andtt(x));
+    t.false(andtf(x));
+    t.false(andft(x));
+    t.false(andff(x));
 
     t.true(ft.called);
-    t.true(ft.alwaysCalledWithExactly(x));
+    t.true(ft.alwaysCalledWith(x));
     t.true(ff.called);
-    t.true(ff.alwaysCalledWithExactly(x));
+    t.true(ff.alwaysCalledWith(x));
 
     t.end();
 });
@@ -112,22 +115,22 @@ test('or', t => {
     const ft = sinon.spy(ftrue);
     const ff = sinon.spy(ffalse);
 
-    const ftt = or(ft)(ft);
-    const ftf = or(ft)(ff);
-    const fft = or(ff)(ft);
-    const fff = or(ff)(ff);
+    const ortt = or(ft)(ft);
+    const ortf = or(ft)(ff);
+    const orft = or(ff)(ft);
+    const orff = or(ff)(ff);
 
     const x = {};
 
-    t.true(ftt(x));
-    t.true(ftf(x));
-    t.true(fft(x));
-    t.false(fff(x));
+    t.true(ortt(x));
+    t.true(ortf(x));
+    t.true(orft(x));
+    t.false(orff(x));
 
     t.true(ft.called);
-    t.true(ft.alwaysCalledWithExactly(x));
+    t.true(ft.alwaysCalledWith(x));
     t.true(ff.called);
-    t.true(ff.alwaysCalledWithExactly(x));
+    t.true(ff.alwaysCalledWith(x));
 
     t.end();
 });
@@ -138,22 +141,22 @@ test('xor', t => {
     const ft = sinon.spy(ftrue);
     const ff = sinon.spy(ffalse);
 
-    const ftt = xor(ft)(ft);
-    const ftf = xor(ft)(ff);
-    const fft = xor(ff)(ft);
-    const fff = xor(ff)(ff);
+    const xortt = xor(ft)(ft);
+    const xortf = xor(ft)(ff);
+    const xorft = xor(ff)(ft);
+    const xorff = xor(ff)(ff);
 
     const x = {};
 
-    t.false(ftt(x));
-    t.true(ftf(x));
-    t.true(fft(x));
-    t.false(fff(x));
+    t.false(xortt(x));
+    t.true(xorft(x));
+    t.true(xorft(x));
+    t.false(xorff(x));
 
     t.true(ft.called);
-    t.true(ft.alwaysCalledWithExactly(x));
+    t.true(ft.alwaysCalledWith(x));
     t.true(ff.called);
-    t.true(ff.alwaysCalledWithExactly(x));
+    t.true(ff.alwaysCalledWith(x));
 
     t.end();
 });
