@@ -1,4 +1,4 @@
-# belt
+# fbelt
 
 This is my functional programming library. There are many like it, but this one is mine.
 My functional programming library is my best friend. It is my life. I must master it as I must master my life.
@@ -10,7 +10,7 @@ I must solve it before it solves me. I will...
 with [npm](https://npmjs.org) do:
 
 ```
-npm install [TBD]
+npm install fbelt
 ```
 
 # license

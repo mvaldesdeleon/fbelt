@@ -1,5 +1,5 @@
 {
-  "name": "belt",
+  "name": "fbelt",
   "version": "0.0.1",
   "description": "Because every tool needs a home",
   "main": "index.js",
@@ -14,7 +14,7 @@
     "sinon": "^2.2.0",
     "tape": "^4.6.3"
   },
-  "repository": "mvaldesdeleon/belt",
+  "repository": "mvaldesdeleon/fbelt",
   "keywords": [
     "functional",
     "programming",
