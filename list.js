@@ -18,7 +18,6 @@ const pairs = zipWith(odds)(evens);
 
 const mapify = list => pairs(list).reduce((map, [key, value]) => Object.assign(map, {[key]: value}), {});
 
-
 module.exports = {
     isArray,
     len,

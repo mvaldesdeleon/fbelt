@@ -1,4 +1,3 @@
-
 const iif = pr => t => f => x => pr(x) ? t(x) : f(x);
 
 const not = fn => x => !fn(x);
