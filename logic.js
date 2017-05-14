@@ -1,8 +1,10 @@
 const id = x => x;
 
-const ftrue = _ => true;
+const always = x => _ => x;
 
-const ffalse = _ => false;
+const ftrue = always(true);
+
+const ffalse = always(false);
 
 const iif = pr => t => f => x => pr(x) ? t(x) : f(x);
 
@@ -16,8 +18,17 @@ const xor = pra => prb => and(or(pra)(prb))(not(and(pra)(prb)));
 
 const equals = x => y => x === y;
 
+const vnot = not(id);
+
+const vand = pr => x => y => pr(x) && pr(y);
+
+const vor = pr => x => y => pr(x) || pr(y);
+
+const vxor = pr => x => and(vor(pr)(x))(not(vand(pr)(x)));
+
 module.exports = {
     id,
+    always,
     ftrue,
     ffalse,
     iif,
@@ -25,5 +36,9 @@ module.exports = {
     and,
     or,
     xor,
-    equals
+    equals,
+    vnot,
+    vand,
+    vor,
+    vxor
 };
