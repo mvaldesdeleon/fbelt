@@ -1,6 +1,6 @@
 {
   "name": "fbelt",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Because every tool needs a home",
   "main": "index.js",
   "scripts": {
