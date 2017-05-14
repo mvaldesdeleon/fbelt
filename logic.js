@@ -14,6 +14,8 @@ const or = pra => prb => x => pra(x) || prb(x);
 
 const xor = pra => prb => and(or(pra)(prb))(not(and(pra)(prb)));
 
+const equals = x => y => x === y;
+
 module.exports = {
     id,
     ftrue,
@@ -22,5 +24,6 @@ module.exports = {
     not,
     and,
     or,
-    xor
+    xor,
+    equals
 };

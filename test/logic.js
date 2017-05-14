@@ -2,7 +2,7 @@ const test = require('tape');
 const sinon = require('sinon');
 
 // functions to test
-const { id, ftrue, ffalse, iif, not, and, or, xor } = require('../logic.js');
+const { id, ftrue, ffalse, iif, not, and, or, xor, equals } = require('../logic.js');
 
 test('id', t => {
     const xs = [null, undefined, -Infinity, 'hello', new Date(), {a: 1}, [1,2,3], true, 1.23];
@@ -158,5 +158,16 @@ test('xor', t => {
     t.true(ff.called);
     t.true(ff.alwaysCalledWith(x));
 
+    t.end();
+});
+
+
+test('equals', t => {
+    t.equal(typeof equals(), 'function');
+
+    const xs = [null, undefined, -Infinity, 'hello', new Date(), {a: 1}, [1,2,3], true, 1.23];
+
+    xs.map(x => equals(x)(x)).map(t.true);
+    xs.map(x => equals(x)('world')).map(t.false);
     t.end();
 });
