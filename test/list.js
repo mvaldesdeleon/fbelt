@@ -3,7 +3,7 @@ const sinon = require('sinon');
 
 const { id, ftrue, ffalse } = require('../logic.js');
 // functions to test
-const { isArray, len, filter, map, zip, zipWith, odds, evens, pairs, mapify } = require('../list.js');
+const { isArray, len, filter, map, zip, zipWith, odds, evens, pairs, mapify, all, none, any } = require('../list.js');
 
 test('isArray', t => {
     const xs = [[], [1,2,3], new Array(10)];
@@ -113,5 +113,74 @@ test('mapify', t => {
     const xs = ['a', 1, 'b', 2, 'c', 3, 'd', 4, 'e', 5];
 
     t.deepEqual({a: 1, b: 2, c: 3, d: 4, e: 5}, mapify(xs));
+    t.end();
+});
+
+test('all', t => {
+    t.equal(typeof all(id), 'function');
+
+    const xs = [true, true, true];
+    const ys = [true, false, true];
+
+    const fx = sinon.spy(id);
+    const fy = sinon.spy(id);
+
+    const allx = all(fx);
+    const ally = all(fy);
+
+    t.true(allx(xs));
+    t.false(ally(ys));
+    t.true(fx.called);
+    t.true(fx.alwaysCalledWith(true));
+    t.true(fy.called);
+    t.true(fy.calledWith(true));
+    t.true(fy.calledWith(false));
+
+    t.end();
+});
+
+test('none', t => {
+    t.equal(typeof none(id), 'function');
+
+    const xs = [false, false, false];
+    const ys = [false, true, false];
+
+    const fx = sinon.spy(id);
+    const fy = sinon.spy(id);
+
+    const nonex = none(fx);
+    const noney = none(fy);
+
+    t.true(nonex(xs));
+    t.false(noney(ys));
+    t.true(fx.called);
+    t.true(fx.alwaysCalledWith(false));
+    t.true(fy.called);
+    t.true(fy.calledWith(true));
+    t.true(fy.calledWith(false));
+
+    t.end();
+});
+
+test('any', t => {
+    t.equal(typeof any(id), 'function');
+
+    const xs = [false, true, false];
+    const ys = [false, false, false];
+
+    const fx = sinon.spy(id);
+    const fy = sinon.spy(id);
+
+    const anyx = any(fx);
+    const anyy = any(fy);
+
+    t.true(anyx(xs));
+    t.false(anyy(ys));
+    t.true(fx.called);
+    t.true(fx.calledWith(true));
+    t.true(fx.calledWith(false));
+    t.true(fy.called);
+    t.true(fy.alwaysCalledWith(false));
+
     t.end();
 });
