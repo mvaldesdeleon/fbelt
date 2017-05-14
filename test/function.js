@@ -3,7 +3,7 @@ const sinon = require('sinon');
 
 const { ftrue } = require('../logic.js');
 // functions to test
-const { arity, compose, apply, call, curry, flip } = require('../function.js');
+const { arity, ary, compose, apply, call, curry, flip } = require('../function.js');
 
 test('arity', t => {
     const f0 = () => void 0;
@@ -15,6 +15,20 @@ test('arity', t => {
     t.equal(1, arity(f1));
     t.equal(2, arity(f2));
     t.equal(3, arity(f3));
+
+    t.end();
+});
+
+test('ary', t => {
+    const f0 = () => void 0;
+    const f1 = (a) => void 0;
+    const f2 = (a, b) => void 0;
+    const f3 = (a, b, c) => void 0;
+
+    t.equal(0, ary(f0));
+    t.equal(1, ary(f1));
+    t.equal(2, ary(f2));
+    t.equal(3, ary(f3));
 
     t.end();
 });

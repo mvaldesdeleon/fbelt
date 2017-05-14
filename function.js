@@ -1,7 +1,8 @@
 const { iif } = require('./logic.js');
-const { len } = require('./list.js');
 
-const arity = len;
+const arity = fn => fn.length;
+
+const ary = arity;
 
 const compose = (...fns) => x => fns.reduceRight((v, fn) => fn(v), x);
 
@@ -15,6 +16,7 @@ const flip = fn => b => a => fn(a)(b);
 
 module.exports = {
     arity,
+    ary,
     compose,
     apply,
     call,
