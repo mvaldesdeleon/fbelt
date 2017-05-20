@@ -1,5 +1,5 @@
 const { id, not } = require('./logic.js');
-const { compose } = require('./function.js');
+const { compose, callWith } = require('./function.js');
 
 const isArray = x => x instanceof Array;
 
@@ -8,6 +8,8 @@ const len = xs => xs.length;
 const filter = fn => xs => xs.filter(fn);
 
 const map = fn => array => array.map(fn);
+
+const mapC = (...fns) => array => array.map(compose(...fns));
 
 const zip = xs => ys => map((y, i) => [xs[i], y])(ys);
 
@@ -29,11 +31,25 @@ const none = pr => xs => xs.reduce((v, x) => v && !pr(x), true);
 
 const any = pr => compose(not(id), none(pr));
 
+const uniqBy = fn => xs => (seen => xs.reduce((uniq, x) => (key => key && !seen[key] ? (seen[key] = true, uniq.concat(x)) : uniq)(fn(x)) , []))({});
+
+const ap = fns => x => map(callWith(x))(fns);
+//            = flip(compose(map, callWith))
+
+const mapply = fns => xs => xs.reduce((xs, x, i) => xs.concat(fns[i](x)), []);
+
+const pick = props => map => props.reduce((newMap, prop) => Object.assign(newMap, {[prop]: map[prop]}), {});
+
+const find = pr => xs => xs.find(pr);
+
+const toArray = xs => isArray(xs) ? xs : [];
+
 module.exports = {
     isArray,
     len,
     filter,
     map,
+    mapC,
     zip,
     zipWith,
     odds,
@@ -42,5 +58,11 @@ module.exports = {
     mapify,
     all,
     none,
-    any
+    any,
+    uniqBy,
+    ap,
+    mapply,
+    pick,
+    find,
+    toArray
 };

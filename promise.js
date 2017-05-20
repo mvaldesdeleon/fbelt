@@ -1,6 +1,6 @@
 const { iif, and, not } = require('./logic.js');
 const { isArray, mapify } = require('./list.js');
-const { isObject, listify, mapAny } = require('./map.js');
+const { isObject, listify, mapAny, mapplyO } = require('./map.js');
 const { compose } = require('./function.js');
 
 const isPromise = x => x instanceof Promise;
@@ -19,6 +19,14 @@ const isTraversable = and(isObject)(not(isPromise));
 
 const traverse = x => isTraversable(x) ? compose(allAny, mapAny(traverse))(x) : resolve(x);
 
+const callbackify = fn => (...args) => (cb => fn(...args).then((...args) => cb(null, ...args), err => cb(err)))(args.pop());
+
+const effectP = fn => x => fn(x).then(() => x);
+
+const mapplyP = transformMap => data => traverse(mapplyO(transformMap)(data));
+
+const then = fn => p => p.then(fn);
+
 module.exports = {
     isPromise,
     resolve,
@@ -26,5 +34,9 @@ module.exports = {
     all,
     allO,
     allAny,
-    traverse
+    traverse,
+    callbackify,
+    effectP,
+    mapplyP,
+    then
 };

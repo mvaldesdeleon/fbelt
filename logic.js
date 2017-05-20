@@ -26,6 +26,10 @@ const vor = pr => x => y => pr(x) || pr(y);
 
 const vxor = pr => x => and(vor(pr)(x))(not(vand(pr)(x)));
 
+const isUndefined = x => typeof x === 'undefined';
+
+const equalsBy = pr => a => b => pr(a) === pr(b);
+
 module.exports = {
     id,
     always,
@@ -40,5 +44,7 @@ module.exports = {
     vnot,
     vand,
     vor,
-    vxor
+    vxor,
+    isUndefined,
+    equalsBy
 };
