@@ -1,5 +1,5 @@
-const { iif } = require('./logic.js');
-const { isArray, map } = require('./list.js');
+const { iif, id } = require('./logic.js');
+const { isArray, map, ap } = require('./list.js');
 const { callWith } = require('./function.js');
 
 const isObject = x => typeof x === 'object' && x;
@@ -18,7 +18,7 @@ const listify = map => keys(map).reduce((list, key) => list.concat(key, map[key]
 
 const apO = fnm => x => mapO(callWith(x))(fnm);
 
-const apAny = fnsm => iif(isArray)(explode(fnsm))(explodeO(fnsm));
+const apAny = fnsm => iif(isArray)(ap(fnsm))(apO(fnsm));
 
 const remap = remap => map => Object.keys(map).reduce((newMap, key) => Object.assign(newMap, {[remap[key] ? remap[key] : key]: map[key]}), {});
 

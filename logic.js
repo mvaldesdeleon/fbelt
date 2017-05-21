@@ -1,6 +1,6 @@
 const id = x => x;
 
-const always = x => _ => x;
+const always = x => () => x;
 
 const ftrue = always(true);
 

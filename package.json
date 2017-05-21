@@ -1,12 +1,12 @@
 {
   "name": "fbelt",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Because every tool needs a home",
   "main": "index.js",
   "scripts": {
     "test": "tape test/*.js | faucet",
     "watch": "nodemon -q -x 'npm test'",
-    "lint": "eslint ./lib"
+    "lint": "eslint ."
   },
   "dependencies": {},
   "devDependencies": {
