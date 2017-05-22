@@ -24,6 +24,8 @@ const remap = remap => map => Object.keys(map).reduce((newMap, key) => Object.as
 
 const remove = fnmap => map => Object.keys(map).reduce((newMap, key) => Object.assign(newMap, fnmap[key] && fnmap[key](map[key]) ? {} : {[key]: map[key]}), {});
 
+const pick = props => map => props.reduce((newMap, prop) => Object.assign(newMap, {[prop]: map[prop]}), {});
+
 const get = prop => map => map[prop];
 
 module.exports = {
@@ -38,5 +40,6 @@ module.exports = {
     apAny,
     remap,
     remove,
+    pick,
     get
 };

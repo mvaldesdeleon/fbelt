@@ -38,8 +38,6 @@ const ap = fns => x => map(callWith(x))(fns);
 
 const mapply = fns => xs => xs.reduce((xs, x, i) => xs.concat(fns[i](x)), []);
 
-const pick = props => map => props.reduce((newMap, prop) => Object.assign(newMap, {[prop]: map[prop]}), {});
-
 const find = pr => xs => xs.find(pr);
 
 const toArray = xs => isArray(xs) ? xs : [];
@@ -62,7 +60,6 @@ module.exports = {
     uniqBy,
     ap,
     mapply,
-    pick,
     find,
     toArray
 };
