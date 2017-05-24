@@ -1,4 +1,4 @@
-const { iif, id } = require('./logic.js');
+const { iif, id, isUndefined } = require('./logic.js');
 const { isArray, map, ap } = require('./list.js');
 const { callWith } = require('./function.js');
 
@@ -24,7 +24,7 @@ const remap = remap => map => Object.keys(map).reduce((newMap, key) => Object.as
 
 const remove = fnmap => map => Object.keys(map).reduce((newMap, key) => Object.assign(newMap, fnmap[key] && fnmap[key](map[key]) ? {} : {[key]: map[key]}), {});
 
-const pick = props => map => props.reduce((newMap, prop) => Object.assign(newMap, {[prop]: map[prop]}), {});
+const pick = props => map => props.reduce((newMap, prop) => isUndefined(map[prop]) ? newMap : Object.assign(newMap, {[prop]: map[prop]}), {});
 
 const get = prop => map => map[prop];
 
