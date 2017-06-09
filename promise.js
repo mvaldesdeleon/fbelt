@@ -1,7 +1,8 @@
 const { iif, and, not } = require('./logic.js');
-const { isArray, mapify } = require('./list.js');
+const { isArray, mapify, map, filter } = require('./list.js');
 const { isObject, listify, mapAny, mapplyO } = require('./map.js');
 const { compose } = require('./function.js');
+const { pairWith, first, second } = require('./tuple.js');
 
 const isPromise = x => x instanceof Promise;
 
@@ -27,6 +28,8 @@ const mapplyP = transformMap => data => traverse(mapplyO(transformMap)(data));
 
 const then = fn => p => p.then(fn);
 
+const filterP = prP => xs => resolve(xs).then(map(pairWith(prP))).then(traverse).then(filter(second)).then(map(first));
+
 module.exports = {
     isPromise,
     resolve,
@@ -38,5 +41,6 @@ module.exports = {
     callbackify,
     effectP,
     mapplyP,
-    then
+    then,
+    filterP
 };
