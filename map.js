@@ -4,6 +4,8 @@ const { callWith } = require('./function.js');
 
 const isObject = x => typeof x === 'object' && x;
 
+const isPlainObject = x => typeof x === 'object' && x !== null && x == '[object Object]';
+
 const keys = Object.keys.bind(Object);
 
 const merge = maps => Object.assign(...[{}, ...maps]);
@@ -30,6 +32,7 @@ const get = prop => map => map[prop];
 
 module.exports = {
     isObject,
+    isPlainObject,
     keys,
     merge,
     mapO,

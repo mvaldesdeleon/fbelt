@@ -1,6 +1,6 @@
-const { iif, and, not } = require('./logic.js');
+const { iif, or } = require('./logic.js');
 const { isArray, mapify, map, filter } = require('./list.js');
-const { isObject, listify, mapAny, mapplyO } = require('./map.js');
+const { isPlainObject, listify, mapAny, mapplyO } = require('./map.js');
 const { compose } = require('./function.js');
 const { pairWith, first, second } = require('./tuple.js');
 
@@ -16,7 +16,7 @@ const allO = map => all(listify(map)).then(mapify);
 
 const allAny = iif(isArray)(all)(allO);
 
-const isTraversable = and(isObject)(not(isPromise));
+const isTraversable = or(isPlainObject)(isArray);
 
 const traverse = x => isTraversable(x) ? compose(allAny, mapAny(traverse))(x) : resolve(x);
 
