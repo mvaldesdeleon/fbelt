@@ -30,6 +30,8 @@ const then = fn => p => p.then(fn);
 
 const filterP = prP => xs => resolve(xs).then(map(pairWith(prP))).then(traverse).then(filter(second)).then(map(first));
 
+const seq = pfns => pfns.reduce((p, pfn) => p.then(pfn), resolve());
+
 module.exports = {
     isPromise,
     resolve,
@@ -42,5 +44,6 @@ module.exports = {
     effectP,
     mapplyP,
     then,
-    filterP
+    filterP,
+    seq
 };
