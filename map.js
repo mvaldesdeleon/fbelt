@@ -28,7 +28,7 @@ const remove = fnmap => map => Object.keys(map).reduce((newMap, key) => Object.a
 
 const pick = props => map => props.reduce((newMap, prop) => isUndefined(map[prop]) ? newMap : Object.assign(newMap, {[prop]: map[prop]}), {});
 
-const get = prop => map => map[prop];
+const get = prop => map => map ? map[prop] : map;
 
 module.exports = {
     isObject,
