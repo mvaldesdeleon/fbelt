@@ -42,6 +42,10 @@ const find = pr => xs => xs.find(pr);
 
 const toArray = xs => isArray(xs) ? xs : [];
 
+const cons =  x => xs => [x, ...xs];
+
+const push =  x => xs => [...xs, x];
+
 module.exports = {
     isArray,
     len,
@@ -61,5 +65,7 @@ module.exports = {
     ap,
     mapply,
     find,
-    toArray
+    toArray,
+    cons,
+    push
 };
