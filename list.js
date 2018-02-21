@@ -42,9 +42,11 @@ const find = pr => xs => xs.find(pr);
 
 const toArray = xs => isArray(xs) ? xs : [];
 
-const cons =  x => xs => [x, ...xs];
+const cons = x => xs => [x, ...xs];
 
-const push =  x => xs => [...xs, x];
+const push = x => xs => [...xs, x];
+
+const contains = x => xs => xs.includes(x);
 
 module.exports = {
     isArray,
@@ -67,5 +69,6 @@ module.exports = {
     find,
     toArray,
     cons,
-    push
+    push,
+    contains
 };
