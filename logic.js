@@ -30,6 +30,10 @@ const isUndefined = x => typeof x === 'undefined';
 
 const equalsBy = pr => a => b => pr(a) === pr(b);
 
+const match = ms => x => ms.reduce(([done, res], [pr, fn]) => done ? [done, res] : (pr(x) ? [true, fn(x)] : [done, res]), [false, undefined])[1];
+
+const otherwise = ftrue;
+
 module.exports = {
     id,
     always,
@@ -46,5 +50,7 @@ module.exports = {
     vor,
     vxor,
     isUndefined,
-    equalsBy
+    equalsBy,
+    match,
+    otherwise
 };
