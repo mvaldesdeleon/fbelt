@@ -48,6 +48,10 @@ const push = x => xs => [...xs, x];
 
 const contains = x => xs => xs.includes(x);
 
+const head = xs => xs[0];
+
+const last = xs => xs[xs.length - 1];
+
 module.exports = {
     isArray,
     len,
@@ -70,5 +74,7 @@ module.exports = {
     toArray,
     cons,
     push,
-    contains
+    contains,
+    head,
+    last
 };
