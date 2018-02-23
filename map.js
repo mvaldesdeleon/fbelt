@@ -30,6 +30,8 @@ const pick = props => map => props.reduce((newMap, prop) => isUndefined(map[prop
 
 const get = prop => map => map ? map[prop] : map;
 
+const has = prop => map => prop in map;
+
 module.exports = {
     isObject,
     isPlainObject,
@@ -44,5 +46,6 @@ module.exports = {
     remap,
     remove,
     pick,
-    get
+    get,
+    has
 };
