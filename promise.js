@@ -32,6 +32,8 @@ const filterP = prP => xs => resolve(xs).then(map(pairWith(prP))).then(traverse)
 
 const seq = pfns => pfns.reduce((p, pfn) => p.then(([r, rs]) => pfn(r).then(pairWith(flip(push)(rs)))), resolve([undefined, []])).then(second);
 
+const assert = pr => x => pr(x) ? x : reject();
+
 module.exports = {
     isPromise,
     resolve,
@@ -45,5 +47,6 @@ module.exports = {
     mapplyP,
     then,
     filterP,
-    seq
+    seq,
+    assert
 };
