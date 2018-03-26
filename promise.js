@@ -34,6 +34,8 @@ const seq = pfns => pfns.reduce((p, pfn) => p.then(([r, rs]) => pfn(r).then(pair
 
 const assert = pr => x => pr(x) ? x : reject();
 
+const assertP = pr => x => pr(x).then(res => res ? x : reject());
+
 module.exports = {
     isPromise,
     resolve,
@@ -48,5 +50,6 @@ module.exports = {
     then,
     filterP,
     seq,
-    assert
+    assert,
+    assertP
 };
