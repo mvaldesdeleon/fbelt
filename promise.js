@@ -36,7 +36,7 @@ const assert = pr => x => pr(x) ? resolve(x) : reject();
 
 const assertP = pr => x => pr(x).then(res => res ? x : reject());
 
-const composeP = (...pfns) => x => pfns.reduceRight((p, pfn) => p.then(pfn), resolve(x));
+const composeP = (...pfns) => (...args) => (first => pfns.reduceRight((p, pfn) => p.then(pfn), first(...args)))(pfns.pop());
 
 module.exports = {
     isPromise,
