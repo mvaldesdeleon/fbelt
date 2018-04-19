@@ -32,9 +32,11 @@ const filterP = prP => xs => resolve(xs).then(map(pairWith(prP))).then(traverse)
 
 const seq = pfns => pfns.reduce((p, pfn) => p.then(([r, rs]) => pfn(r).then(pairWith(flip(push)(rs)))), resolve([undefined, []])).then(second);
 
-const assert = pr => x => pr(x) ? x : reject();
+const assert = pr => x => pr(x) ? resolve(x) : reject();
 
 const assertP = pr => x => pr(x).then(res => res ? x : reject());
+
+const composeP = (...pfns) => x => pfns.reduceRight((p, pfn) => p.then(pfn), resolve(x));
 
 module.exports = {
     isPromise,
@@ -51,5 +53,6 @@ module.exports = {
     filterP,
     seq,
     assert,
-    assertP
+    assertP,
+    composeP
 };
