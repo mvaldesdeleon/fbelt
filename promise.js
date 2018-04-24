@@ -34,11 +34,11 @@ const seq = pfns => pfns.reduce((p, pfn) => p.then(([r, rs]) => pfn(r).then(pair
 
 const assert = pr => x => pr(x) ? resolve(x) : reject();
 
-const assertE = (msg, pr) => x => pr(x) ? resolve(x) : reject(new Error(msg));
+const assertE = (msg, pr) => x => pr(x) ? resolve(x) : reject(new Error(`Assertion failed: ${msg}`));
 
 const assertP = pr => x => pr(x).then(res => res ? x : reject());
 
-const assertPE = (msg, pr) => x => pr(x).then(res => res ? x : reject(new Error(msg)));
+const assertPE = (msg, pr) => x => pr(x).then(res => res ? x : reject(new Error(`Assertion failed: ${msg}`)));
 
 const composeP = (...pfns) => (...args) => (first => pfns.reduceRight((p, pfn) => p.then(pfn), first(...args)))(pfns.pop());
 
