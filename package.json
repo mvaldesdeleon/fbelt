@@ -23,5 +23,6 @@
     "toolbox"
   ],
   "author": "Martin Valdes de Leon <m.valdesdeleon@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "types": "index.d.ts"
 }
